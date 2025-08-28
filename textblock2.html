@@ -8,6 +8,10 @@ IF (NOT Empty(@sfOrgId) AND NOT Empty(@journeyId)) THEN
     Set @personalizeId = Concat(@objectId,_emailId,"1755727548652")
 ENDIF
 
+/* Default DCP Availability Email */
+SET @defaultDCP = ''
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/embark-virtual-iop/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Virtual IOP</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-34): No waitlist</span></p>')
+
 IF EMPTY(@richText) THEN
     IF NOT Empty(@personalizeDE) THEN
         Set @richTextMsg = Lookup(@personalizeDE,"value","id",@personalizeId)
@@ -17,7 +21,7 @@ IF EMPTY(@richText) THEN
 ELSE THEN
     Set @richTextMsg = @richText
 ENDIF
-Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1755727548652">', @richTextMsg, '</div>')
+Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1755727548652">', @richTextMsg, @defaultDCP, '</div>')
 ]%%
 %%=v(@richTextMsg)=%%
 %%[*/ DO NOT TOUCH */]%%
