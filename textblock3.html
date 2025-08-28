@@ -1,0 +1,23 @@
+%%[/* DO NOT TOUCH */
+Set @sfOrgId = RegExMatch(AttributeValue("sfOrgId"),"(^[a-zA-Z0-9]{18}$)",1)
+Set @richText = AttributeValue("1755727669496") /* Passed for the DM Email Preview */
+Set @objectId = IIF(EMPTY(AttributeValue("sfCampaignMemberId")), AttributeValue("id"), AttributeValue("sfCampaignMemberId"))
+Set @journeyId = RegExMatch(AttributeValue("journeyId"),"(^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$)",1)
+IF (NOT Empty(@sfOrgId) AND NOT Empty(@journeyId)) THEN
+    Set @personalizeDE = Concat("PersonalizationDE", "_" , @sfOrgId, "_", @journeyId)
+    Set @personalizeId = Concat(@objectId,_emailId,"1755727669496")
+ENDIF
+
+IF EMPTY(@richText) THEN
+    IF NOT Empty(@personalizeDE) THEN
+        Set @richTextMsg = Lookup(@personalizeDE,"value","id",@personalizeId)
+    ELSE
+        Set @richTextMsg = ""
+    ENDIF
+ELSE THEN
+    Set @richTextMsg = @richText
+ENDIF
+Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1755727669496">', @richTextMsg, '</div>')
+]%%
+%%=v(@richTextMsg)=%%
+%%[*/ DO NOT TOUCH */]%%
