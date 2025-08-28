@@ -8,6 +8,22 @@ IF (NOT Empty(@sfOrgId) AND NOT Empty(@journeyId)) THEN
     Set @personalizeId = Concat(@objectId,_emailId,"1756384692503")
 ENDIF
 
+/* Default DCP Availability Email */
+SET @defaultDCP = ''
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/arizona/scottsdale/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Scottsdale, AZ</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/california/campbell/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Campbell, CA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/california/newport-beach/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Newport Beach, CA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/california/walnut-creek/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Walnut Creek, CA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/colorado/greenwood-village/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Greenwood Village, CO</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/georgia/alpharetta/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Alpharetta, GA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/georgia/atlanta/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Atlanta, GA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 9-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/maryland/chevy-chase/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Chevy Chase, MD</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/maryland/rockville/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Rockville, MD</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/pennsylvania/berwyn/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Berwyn, PA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-18): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/maryland/ashburn/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Ashburn, VA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-28): No waitlist</span></p>')
+SET @defaultDCP = Concat(@defaultDCP, '<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/virginia/vienna/" style="text-decoration:none"><span class="Hyperlink" style="font-family:Arial; font-size:10.5pt">Embark at Vienna, VA</span></a><span style="font-family:Arial; font-size:10.5pt"> (All genders ages 12-17): No waitlist</span></p>')
+
+
 IF EMPTY(@richText) THEN
     IF NOT Empty(@personalizeDE) THEN
         Set @richTextMsg = Lookup(@personalizeDE,"value","id",@personalizeId)
@@ -17,7 +33,7 @@ IF EMPTY(@richText) THEN
 ELSE THEN
     Set @richTextMsg = @richText
 ENDIF
-Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1756384692503">', @richTextMsg, '</div>')
+Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1756384692503">', @richTextMsg, @defaultDCP, '</div>')
 ]%%
 %%=v(@richTextMsg)=%%
 %%[*/ DO NOT TOUCH */]%%
