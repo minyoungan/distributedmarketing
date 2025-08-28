@@ -8,6 +8,13 @@ IF (NOT Empty(@sfOrgId) AND NOT Empty(@journeyId)) THEN
     Set @personalizeId = Concat(@objectId,_emailId,"1754956232347")
 ENDIF
 
+/* Default DCP Availability Email */
+SET @defaultDCP = 
+'<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/utah/hurricane/" style="text-decoration:none"><span class="Hyperlink" style="font-weight:bold">Embark at Hurricane, Utah</span></a><span style="font-family:Arial; font-size:10.5pt"> (Males ages 12-17): 2-4 week waitlist</span></p>'
+
+SET @defaultDCP = Concat(@defaultDCP,
+'<p style="line-height:150%"><a href="https://www.embarkbh.com/locations/utah/new-haven-residential-treatment-center/" style="text-decoration:none"><span class="Hyperlink" style="font-weight:bold">Embark at New Haven, Utah</span></a><span style="font-family:Arial; font-size:10.5pt"> (Females ages 14-18): No waitlist</span></p>')
+
 IF EMPTY(@richText) THEN
     IF NOT Empty(@personalizeDE) THEN
         Set @richTextMsg = Lookup(@personalizeDE,"value","id",@personalizeId)
@@ -17,7 +24,7 @@ IF EMPTY(@richText) THEN
 ELSE THEN
     Set @richTextMsg = @richText
 ENDIF
-Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1754956232347">', @richTextMsg, '</div>')
+Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1754956232347">', @richTextMsg, @defaultDCP, '</div>')
 ]%%
 %%=v(@richTextMsg)=%%
 %%[*/ DO NOT TOUCH */]%%
