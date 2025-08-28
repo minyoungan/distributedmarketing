@@ -30,7 +30,7 @@ IF EMPTY(@richText) THEN
     ELSE
         Set @richTextMsg = ""
     ENDIF
-ELSE THEN
+ELSE 
     Set @richTextMsg = @richText
 ENDIF
 Set @richTextMsg = Concat('<div class="dm-rich-text-block" data-dm-block-id="1756384692503">', @richTextMsg, @defaultDCP, '</div>')
